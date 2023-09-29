@@ -30,7 +30,7 @@ public partial class AllBooksPage : ContentPage
         {
             // Navigate to the NoteEntryPage, passing the ID as a query parameter.
             Book note = (Book)e.CurrentSelection.FirstOrDefault();
-            await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID.ToString()}");
+            await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID}");
         }
     }
 }
