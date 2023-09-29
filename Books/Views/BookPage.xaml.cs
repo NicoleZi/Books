@@ -17,7 +17,7 @@ public partial class BookPage : ContentPage
     {
         InitializeComponent();
 
-        // Set the BindingContext of the page to a new Note.
+        // Set the BindingContext of the page to a new Book.
         BindingContext = new Book();
     }
 
@@ -26,21 +26,22 @@ public partial class BookPage : ContentPage
         try
         {
             int id = Convert.ToInt32(itemId);
-            // Retrieve the note and set it as the BindingContext of the page.
+            // Retrieve the book and set it as the BindingContext of the page.
             Book note = await App.Database.GetNoteAsync(id);
             BindingContext = note;
         }
         catch (Exception)
         {
-            Console.WriteLine("Failed to load note.");
+            Console.WriteLine("Failed to load book.");
         }
     }
 
     async void OnSaveButtonClicked(object sender, EventArgs e)
     {
         var note = (Book)BindingContext;
-        note.Date = DateTime.UtcNow;
-        if (!string.IsNullOrWhiteSpace(note.Text))
+
+        //note.Date = DateTime.UtcNow;
+        if (!string.IsNullOrWhiteSpace(note.Title))
         {
             await App.Database.SaveNoteAsync(note);
         }

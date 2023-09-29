@@ -5,8 +5,11 @@
              Title="BookPage">
     <!-- Layout children vertically -->
     <StackLayout Margin="20">
-        <Editor Placeholder="Enter your note"
-                Text="{Binding Text}"
+        <Editor Placeholder="Book Title"
+                Text="{Binding Title}"
+                HeightRequest="100" />
+        <Editor Placeholder="Autor"
+                Text="{Binding Autor}"
                 HeightRequest="100" />
         <!-- Layout children in two columns -->
         <Grid ColumnDefinitions="*,*">
