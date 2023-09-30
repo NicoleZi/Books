@@ -58,4 +58,24 @@ public partial class BookPage : ContentPage
         // Navigate backwards
         await Shell.Current.GoToAsync("..");
     }
+
+    void OnVolumeStepperValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        var note = (Book)BindingContext;
+        note.Volume = (int)e.NewValue;
+
+        ((Stepper)sender).Value = note.Volume;
+
+        VolumeLabel.Text = note.Volume.ToString();
+    }
+
+    void OnRatingStepperValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        var note = (Book)BindingContext;
+        note.Rating = (float)e.NewValue;
+
+        ((Stepper)sender).Value = note.Rating;
+
+        RatingLabel.Text = note.Rating.ToString();
+    }
 }

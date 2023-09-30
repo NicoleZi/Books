@@ -15,7 +15,7 @@ public partial class AllBooksPage : ContentPage
 
         // Retrieve all the notes from the database, and set them as the
         // data source for the CollectionView.
-        collectionView.ItemsSource = await App.Database.GetNotesAsync();
+        collectionView.ItemsSource = await App.Database.GetNotesAsync();       
     }
 
     async void OnAddClicked(object sender, EventArgs e)
@@ -30,7 +30,7 @@ public partial class AllBooksPage : ContentPage
         {
             // Navigate to the NoteEntryPage, passing the ID as a query parameter.
             Book note = (Book)e.CurrentSelection.FirstOrDefault();
-            await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID.ToString()}");
+            await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID}");
         }
     }
 }

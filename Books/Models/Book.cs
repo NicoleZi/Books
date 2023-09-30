@@ -13,6 +13,22 @@ namespace Books.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public string Autor {  get; set; }
-        //public DateTime Date { get; set; }
+
+        // Booleans
+        public bool Favorite { get; set; } = false;
+        public bool Bought { get; set; } = false;
+        public bool Read { get; set; } = false;
+        public bool Private { get; set; } = false;
+
+        // About the Book
+        public int Volume { get; set; } = 0;
+        public string Universum { get; set; }
+        public string Genre { get; set; }
+        public DateTime ReleaseDate { get; set; } = DateTime.Today;
+
+        //Extras
+        public string Comment { get; set; }
+        public float Rating { get; set; }
+        //public Bitmap[] Gallery { get; set; }
     }
 }
