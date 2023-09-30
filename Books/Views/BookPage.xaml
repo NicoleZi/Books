@@ -4,55 +4,79 @@
              x:Class="Books.Views.BookPage"
              Title="BookPage">
     <!-- Layout children vertically -->
-    <StackLayout Margin="20">
-        <Editor Placeholder="Book Title"
-                Text="{Binding Title}"
-                HeightRequest="100" />
-        <Editor Placeholder="Autor"
-                Text="{Binding Autor}"
-                HeightRequest="100" />
-        <Label Text="Favorite:" />
-        <CheckBox Color="Red" x:Name="CheckboxFavorite" IsChecked="{Binding Favorite}"/>
+    <ScrollView>
+        <StackLayout Margin="20">
+            <Editor Placeholder="Book Title"
+                    Text="{Binding Title}"
+                    HeightRequest="100" />
+            <Editor Placeholder="Autor"
+                    Text="{Binding Autor}"
+                    HeightRequest="100" />
+            <Label Text="Favorite:" />
+            <CheckBox Color="Red" x:Name="CheckboxFavorite" IsChecked="{Binding Favorite}"/>
 
-        <Label x:Name="Status"
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
-        <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-            <Label Text="Bought" />
-            <CheckBox x:Name="CheckBought" IsChecked="{Binding Bought}"/>
-            <Label Text="Read" Grid.Column="1"/>
-            <CheckBox x:Name="CheckRead" IsChecked="{Binding Read}" Grid.Column="1"/>
-        </Grid>
-        <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-            <Label Text="Privates Buch"/>
-            <Switch x:Name="CheckPrivate" IsToggled="{Binding Private}" />
-        </Grid>
-        <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-            <Label Text="Band:" />
-            <Label x:Name="VolumeLabel" Text="{Binding Volume}" Grid.Column="1"/>
-        </Grid>
-        <Stepper x:Name="VolumeStepper"
-                 Minimum="0"
-                 Maximum="999"
-                 Increment="1"
-                 Value="{Binding Volume}" 
-                 ValueChanged="OnVolumeStepperValueChanged" />
-        <Editor x:Name="EditorUniversum" 
-                Placeholder="Universum" 
-                Text="{Binding Universum}"
-                HeightRequest="100" />
-        <Editor x:Name="EditorGenre" 
-                Placeholder="Genre" 
-                Text="{Binding Genre}"
-                HeightRequest="100" />
+            <Label x:Name="Status"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
+                <Label Text="Bought" />
+                <CheckBox x:Name="CheckBought" IsChecked="{Binding Bought}"/>
+                <Label Text="Read" Grid.Column="1"/>
+                <CheckBox x:Name="CheckRead" IsChecked="{Binding Read}" Grid.Column="1"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
+                <Label Text="Privates Buch"/>
+                <Switch x:Name="CheckPrivate" IsToggled="{Binding Private}" />
+            </Grid>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
+                <Label Text="Band:" />
+                <Label x:Name="VolumeLabel" Text="{Binding Volume}" Grid.Column="1"/>
+            </Grid>
+            <Stepper x:Name="VolumeStepper"
+                     Minimum="0"
+                     Maximum="999"
+                     Increment="1"
+                     Value="{Binding Volume}" 
+                     ValueChanged="OnVolumeStepperValueChanged" />
+            <Editor x:Name="EditorUniversum" 
+                    Placeholder="Universum" 
+                    Text="{Binding Universum}"
+                    HeightRequest="100" />
+            <Editor x:Name="EditorGenre" 
+                    Placeholder="Genre" 
+                    Text="{Binding Genre}"
+                    HeightRequest="100" />
 
-        <!-- Layout children in two columns -->
-        <Grid ColumnDefinitions="*,*">
-            <Button Text="Save" 
-                Clicked="OnSaveButtonClicked" />
-            <Button Grid.Column="1"
-                Text="Delete" 
-                Clicked="OnDeleteButtonClicked"/>
-        </Grid>
-    </StackLayout>
+            <Label Text="Release Date:" />
+            <DatePicker x:Name="DatePicker"
+                        Date="{Binding ReleaseDate}"
+                        Format="D"
+                        Margin="30, 0, 0, 30" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
+                <Label Text="Sterne:" />
+                <Label x:Name="RatingLabel" Text="{Binding Rating}" Grid.Column="1"/>
+            </Grid>
+            <Stepper x:Name="RatingStepper"
+                     Minimum="0"
+                     Maximum="5"
+                     Increment="0.5"
+                     Value="{Binding Rating}" 
+                     ValueChanged="OnRatingStepperValueChanged" />
+
+            <Editor x:Name="EditorComment" 
+                    Placeholder="Comments" 
+                    Text="{Binding Comment}"
+                    HeightRequest="100" />
+
+            <!-- Layout children in two columns -->
+            <Grid ColumnDefinitions="*,*">
+                <Button Text="Save" 
+                    Clicked="OnSaveButtonClicked" />
+                <Button Grid.Column="1"
+                    Text="Delete" 
+                    Clicked="OnDeleteButtonClicked"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

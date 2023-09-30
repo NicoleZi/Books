@@ -68,4 +68,14 @@ public partial class BookPage : ContentPage
 
         VolumeLabel.Text = note.Volume.ToString();
     }
+
+    void OnRatingStepperValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        var note = (Book)BindingContext;
+        note.Rating = (float)e.NewValue;
+
+        ((Stepper)sender).Value = note.Rating;
+
+        RatingLabel.Text = note.Rating.ToString();
+    }
 }

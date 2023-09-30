@@ -23,7 +23,12 @@
             <DataTemplate>
                 <StackLayout>
                     <Label Text="{Binding Title}"
-                           FontSize="Medium"/>
+                           FontSize="Medium" />
+                    <RoundRectangle HeightRequest="15"
+                                    WidthRequest="15"
+                                    Fill="Green"
+                                    IsVisible="{Binding Bought}"
+                                    HorizontalOptions="StartAndExpand"/>
                     <Label Text="{Binding Autor}"
                            TextColor="Silver"
                            FontSize="Small" />

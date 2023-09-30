@@ -24,7 +24,7 @@ namespace Books.Models
         public int Volume { get; set; } = 0;
         public string Universum { get; set; }
         public string Genre { get; set; }
-        //public DateTime ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; } = DateTime.Today;
 
         //Extras
         public string Comment { get; set; }
