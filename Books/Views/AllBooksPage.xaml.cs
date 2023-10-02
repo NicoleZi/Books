@@ -20,7 +20,7 @@ public partial class AllBooksPage : ContentPage
 
     async void OnAddClicked(object sender, EventArgs e)
     {
-        // Navigate to the NoteEntryPage.
+        // Navigate to the BookPage.
         await Shell.Current.GoToAsync(nameof(BookPage));
     }
 
@@ -28,7 +28,7 @@ public partial class AllBooksPage : ContentPage
     {
         if (e.CurrentSelection != null)
         {
-            // Navigate to the NoteEntryPage, passing the ID as a query parameter.
+            // Navigate to the BookPage, passing the ID as a query parameter.
             Book note = (Book)e.CurrentSelection.FirstOrDefault();
             await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID}");
         }

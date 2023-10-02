@@ -9,7 +9,7 @@
                  Clicked="OnAddClicked" />
     </ContentPage.ToolbarItems>
 
-    <!-- Display notes in a list -->
+    <!-- Display books in a list -->
     <CollectionView x:Name="collectionView"
                     Margin="20"
                     SelectionMode="Single"
