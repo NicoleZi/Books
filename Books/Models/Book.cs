@@ -30,5 +30,9 @@ namespace Books.Models
         public string Comment { get; set; }
         public float Rating { get; set; }
         //public Bitmap[] Gallery { get; set; }
+
+        // TBR Elements
+        public bool ToBeRead { get; set; } = false;
+        public int Index { get; set; }
     }
 }

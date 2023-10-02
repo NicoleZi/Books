@@ -69,6 +69,11 @@
                     Text="{Binding Comment}"
                     HeightRequest="100" />
 
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
+                <Label Text="TBR" />
+                <CheckBox x:Name="TbrCheckBox" IsChecked="{Binding ToBeRead}"/>
+            </Grid>
+
             <!-- Layout children in two columns -->
             <Grid ColumnDefinitions="*,*">
                 <Button Text="Save" 

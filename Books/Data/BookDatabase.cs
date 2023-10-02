@@ -20,13 +20,13 @@ namespace Books.Data
 
         public Task<List<Book>> GetNotesAsync()
         {
-            //Get all notes.
+            //Get all books.
             return database.Table<Book>().ToListAsync();
         }
 
         public Task<Book> GetNoteAsync(int id)
         {
-            // Get a specific note.
+            // Get a specific book.
             return database.Table<Book>()
                             .Where(i => i.ID == id)
                             .FirstOrDefaultAsync();
