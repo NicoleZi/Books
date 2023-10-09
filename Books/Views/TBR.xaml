@@ -16,7 +16,7 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                    <Label Text="{Binding Index}" />
+                    <Label Text="{Binding TBRIndex}" />
                     <Label Text="{Binding Title}"
                        FontSize="Medium" />
                     <Label Text="{Binding Autor}"

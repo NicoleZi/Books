@@ -32,7 +32,6 @@ namespace Books.Models
         //public Bitmap[] Gallery { get; set; }
 
         // TBR Elements
-        public bool ToBeRead { get; set; } = false;
-        public int Index { get; set; }
+        public int TBRIndex { get; set; }
     }
 }
