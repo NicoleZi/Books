@@ -1,4 +1,6 @@
 using Books.Models;
+using Microsoft.Maui.Controls;
+using System.Diagnostics;
 
 namespace Books.Views;
 
@@ -29,6 +31,8 @@ public partial class BookPage : ContentPage
             // Retrieve the book and set it as the BindingContext of the page.
             Book note = await App.Database.GetNoteAsync(id);
             BindingContext = note;
+
+            GetImages();
         }
         catch (Exception)
         {
@@ -40,7 +44,6 @@ public partial class BookPage : ContentPage
     {
         var note = (Book)BindingContext;
 
-        //note.Date = DateTime.UtcNow;
         if (!string.IsNullOrWhiteSpace(note.Title))
         {
             await App.Database.SaveNoteAsync(note);
@@ -77,5 +80,54 @@ public partial class BookPage : ContentPage
         ((Stepper)sender).Value = note.Rating;
 
         RatingLabel.Text = note.Rating.ToString();
+    }
+
+    private async void PhotoButton_Clicked(object sender, EventArgs e)
+    {
+        if (MediaPicker.Default.IsCaptureSupported)
+        {
+            var foldername = (Book)BindingContext;
+
+            string dir = Path.Combine(FileSystem.CacheDirectory, "Books");
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+            if (photo != null)
+            {
+                dir = Path.Combine(dir, foldername.Title);
+                if(!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                string localFilePath = Path.Combine(dir, photo.FileName);
+                using Stream sourceStream = await photo.OpenReadAsync();
+                using FileStream localFileStream = File.OpenWrite(localFilePath);
+                await sourceStream.CopyToAsync(localFileStream);
+
+                foldername.GalleryFolder = dir;
+                await App.Database.SaveNoteAsync(foldername);
+            }           
+        }
+        else
+            await Shell.Current.DisplayAlert("Oops", "You device isn't supported", "Ok");
+    }
+
+    public void GetImages()
+    {
+        var note = (Book)BindingContext;
+
+        if (!string.IsNullOrWhiteSpace(note.GalleryFolder))
+        {
+            string[] files = Directory.GetFiles(note.GalleryFolder);
+
+            // for(int ...) img adden - with grid column ...
+            var img = new Image();
+            img.Source = files[0];
+            img.HeightRequest = 200;
+            PhotoGrid.Children.Add(img);
+        } else
+        {
+            Shell.Current.DisplayAlert("Nooo", "Leer", "Ok");
+        }                   
     }
 }

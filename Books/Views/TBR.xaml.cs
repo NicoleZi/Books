@@ -1,10 +1,14 @@
 using Books.Models;
+using Microsoft.Maui;
 
 namespace Books.Views;
 
 public partial class TBR : ContentPage
 {
-	public TBR()
+    public List<Book> tbrList;
+
+
+    public TBR()
 	{
 		InitializeComponent();
 	}
@@ -47,7 +51,7 @@ public partial class TBR : ContentPage
             }
         }
 
-        List<Book> tbrList = new List<Book>();
+        tbrList = new List<Book>();
         bool newBook = false;
 
         for (int i = 0; i < keyValueList.Count; i++)
@@ -60,36 +64,12 @@ public partial class TBR : ContentPage
 
         if (newBook)
         {
-            Console.WriteLine("NNNNNNEEEEEEWWWWW   BBBOOOOOOOKKKKK !!!!!!!!!!");
             for (int i = 0; i < keyValueList.Count; i++)
             {
                 if (keyValueList[i].Value == 0)
                     tbrList.Add(keyValueList[i].Key);
             }
         }
-
-            /*
-        for ( int i = 1; i <= keyValueList.Count; i++ )
-        {
-            foreach(KeyValuePair<Book, int> kvp in keyValueList)
-            {
-                if (kvp.Value == i)
-                {
-                    Console.WriteLine("Title: " + kvp.Key.Title);
-                    Console.WriteLine("Value: " + kvp.Value);
-                    tbrList.Add(kvp.Key);                   
-                }
-                else if (kvp.Value == 0 && i == keyValueList.Count)
-                {
-                    Console.WriteLine("ELSE ---- Title: " + kvp.Key.Title + "--- Value: " + kvp.Value);
-                    tbrList.Add(kvp.Key);
-                } else if (kvp.Value > keyValueList.Count)
-                {
-                    // Müssen vor der 0 aber sortiert nach größe und nach der ersten if zur liste added werden
-                }
-            }
-        }
-            */
 
         foreach(Book book in tbrList)
         {
@@ -109,5 +89,16 @@ public partial class TBR : ContentPage
             Book note = (Book)e.CurrentSelection.FirstOrDefault();
             await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID}");
         }
+    }
+
+    private void UpButton_Clicked(object sender, EventArgs e)
+    {
+        //Grid gridParent = (Button)sender).Parent;
+        Console.WriteLine("ITEM Visual CHILD ---- " + ((Button)sender).Parent);
+        Console.WriteLine("ITEM Visual CHILD 2 ---- " + ((Button)sender).Id);
+    }
+    private void DownButton_Clicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("DOWN ---- " + sender.ToString());
     }
 }

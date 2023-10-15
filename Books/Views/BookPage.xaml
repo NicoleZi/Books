@@ -69,6 +69,13 @@
                     Text="{Binding Comment}"
                     HeightRequest="100" />
 
+            <Button x:Name="PhotoButton"
+                    Text="Add Photo"
+                    Clicked="PhotoButton_Clicked" />
+            <Grid x:Name="PhotoGrid">
+            </Grid>
+            
+
             <!-- Layout children in two columns -->
             <Grid ColumnDefinitions="*,*">
                 <Button Text="Save" 
