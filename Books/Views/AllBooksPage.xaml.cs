@@ -4,6 +4,8 @@ namespace Books.Views;
 
 public partial class AllBooksPage : ContentPage
 {
+    List<Book> bookCollection;
+
 	public AllBooksPage()
 	{
 		InitializeComponent();
@@ -15,7 +17,8 @@ public partial class AllBooksPage : ContentPage
 
         // Retrieve all the notes from the database, and set them as the
         // data source for the CollectionView.
-        collectionView.ItemsSource = await App.Database.GetNotesAsync();       
+        bookCollection = await App.Database.GetNotesAsync();
+        collectionView.ItemsSource = bookCollection;
     }
 
     async void OnAddClicked(object sender, EventArgs e)
@@ -32,5 +35,11 @@ public partial class AllBooksPage : ContentPage
             Book note = (Book)e.CurrentSelection.FirstOrDefault();
             await Shell.Current.GoToAsync($"{nameof(BookPage)}?{nameof(BookPage.ItemId)}={note.ID}");
         }
+    }
+
+    private void searchBar_TextChanged(object sender, TextChangedEventArgs e) 
+    {
+        var filteredList = bookCollection.Where(a => a.Title.Contains(e.NewTextValue) || a.Autor.Contains(e.NewTextValue));
+        collectionView.ItemsSource = filteredList;
     }
 }

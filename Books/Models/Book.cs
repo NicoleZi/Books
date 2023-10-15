@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlTypes;
 using SQLite;
 
 namespace Books.Models
@@ -29,7 +26,7 @@ namespace Books.Models
         //Extras
         public string Comment { get; set; }
         public float Rating { get; set; }
-        //public Bitmap[] Gallery { get; set; }
+        public string GalleryFolder { get; set; }
 
         // TBR Elements
         public int TBRIndex { get; set; }

@@ -9,19 +9,26 @@
                  Clicked="OnAddClicked" />
     </ContentPage.ToolbarItems>
 
-    <!-- Display books in a list -->
+    <StackLayout>
+        <SearchBar Placeholder="Search Book"
+                   x:Name="searchBar"
+                   TextChanged="searchBar_TextChanged" />
+        <!-- Display books in a list -->
     <CollectionView x:Name="collectionView"
                     Margin="20"
                     SelectionMode="Single"
-                    SelectionChanged="OnSelectionChanged">
+                    SelectionChanged="OnSelectionChanged"
+                    EmptyView="No books to display">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical"
-                               ItemSpacing="10" />
+                               ItemSpacing="5" />
         </CollectionView.ItemsLayout>
         <!-- Define the appearance of each item in the list -->
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <StackLayout>
+
+                    <StackLayout BackgroundColor="MediumSlateBlue"
+                                 Padding="10" >
                     <Label Text="{Binding Title}"
                            FontSize="Medium" />
                     <RoundRectangle HeightRequest="15"
@@ -32,8 +39,10 @@
                     <Label Text="{Binding Autor}"
                            TextColor="Silver"
                            FontSize="Small" />
-                </StackLayout>
+                    </StackLayout>
+
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
+    </StackLayout>
 </ContentPage>
