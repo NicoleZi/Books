@@ -53,6 +53,7 @@
                         Format="D"
                         Margin="30, 0, 0, 30" />
 
+            
             <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
                 <Label Text="Sterne:" />
                 <Label x:Name="RatingLabel" Text="{Binding Rating}" Grid.Column="1"/>
@@ -68,13 +69,19 @@
                     Placeholder="Comments" 
                     Text="{Binding Comment}"
                     HeightRequest="100" />
-
-            <Button x:Name="PhotoButton"
+            <Grid RowDefinitions="*,*" Margin="20">
+                <Button x:Name="PhotoButton"
                     Text="Add Photo"
                     Clicked="PhotoButton_Clicked" />
-            <Grid x:Name="PhotoGrid">
+                <ScrollView HorizontalScrollBarVisibility="Always"
+                            Orientation="Horizontal"
+                    HeightRequest="250"
+                            Grid.Row="1">
+                    <Grid x:Name="PhotoGrid" ColumnSpacing="5">
+                        <Grid.ColumnDefinitions />
+                    </Grid>
+                </ScrollView>
             </Grid>
-            
 
             <!-- Layout children in two columns -->
             <Grid ColumnDefinitions="*,*">

@@ -119,12 +119,19 @@ public partial class BookPage : ContentPage
         if (!string.IsNullOrWhiteSpace(note.GalleryFolder))
         {
             string[] files = Directory.GetFiles(note.GalleryFolder);
+            
 
-            // for(int ...) img adden - with grid column ...
-            var img = new Image();
-            img.Source = files[0];
-            img.HeightRequest = 200;
-            PhotoGrid.Children.Add(img);
+            Console.WriteLine("................." + files.Length);
+            for(int i = 0; i < files.Length; i++)
+            {
+                var img = new Image();
+                ColumnDefinition columnDefinition = new ColumnDefinition();
+                img.Source = files[i];                
+                img.HeightRequest = 200;
+                img.Margin = 5;
+                PhotoGrid.AddColumnDefinition(columnDefinition);
+                PhotoGrid.Add(img, i, 0);
+            }          
         } else
         {
             Shell.Current.DisplayAlert("Nooo", "Leer", "Ok");
