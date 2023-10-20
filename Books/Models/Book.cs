@@ -30,5 +30,7 @@ namespace Books.Models
 
         // TBR Elements
         public int TBRIndex { get; set; }
+        public bool NotFirstIndex { get; set; } = true;
+        public bool NotLastIndex { get; set; } = true;
     }
 }

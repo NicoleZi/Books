@@ -119,22 +119,27 @@ public partial class BookPage : ContentPage
         if (!string.IsNullOrWhiteSpace(note.GalleryFolder))
         {
             string[] files = Directory.GetFiles(note.GalleryFolder);
-            
 
-            Console.WriteLine("................." + files.Length);
             for(int i = 0; i < files.Length; i++)
             {
                 var img = new Image();
-                ColumnDefinition columnDefinition = new ColumnDefinition();
                 img.Source = files[i];                
                 img.HeightRequest = 200;
                 img.Margin = 5;
-                PhotoGrid.AddColumnDefinition(columnDefinition);
+                PhotoGrid.AddColumnDefinition(new ColumnDefinition());
                 PhotoGrid.Add(img, i, 0);
             }          
         } else
         {
-            Shell.Current.DisplayAlert("Nooo", "Leer", "Ok");
+            //PhotoGrid.AddColumnDefinition(new ColumnDefinition());
+            PhotoGrid.Add(new Label 
+                { Text = "No photos to display", 
+                FontSize = 20, 
+                VerticalOptions=LayoutOptions.Center, 
+                HorizontalTextAlignment=TextAlignment.Center,
+                FontAttributes = FontAttributes.Italic,
+                TextColor = Colors.LightGrey,
+                WidthRequest=300});
         }                   
     }
 }

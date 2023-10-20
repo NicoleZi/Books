@@ -77,8 +77,7 @@
                             Orientation="Horizontal"
                     HeightRequest="250"
                             Grid.Row="1">
-                    <Grid x:Name="PhotoGrid" ColumnSpacing="5">
-                        <Grid.ColumnDefinitions />
+                    <Grid x:Name="PhotoGrid" ColumnSpacing="5" ColumnDefinitions="*">
                     </Grid>
                 </ScrollView>
             </Grid>
