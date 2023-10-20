@@ -3,60 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Books.Views.TBR"
              Title="TBR">
-    
-    <CollectionView x:Name="collectionView"
-                Margin="20"
-                SelectionMode="Single"
-                SelectionChanged="OnSelectionChanged">
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical"
-                           ItemSpacing="10" />
-        </CollectionView.ItemsLayout>
-        <!-- Define the appearance of each item in the list -->
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.2*" />
-                            <ColumnDefinition Width="2.5*" />
-                            <ColumnDefinition Width="0.5*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="1*" />
-                        </Grid.RowDefinitions>
 
-                        <Label Text="{Binding TBRIndex}"
-                               VerticalOptions="Center"
-                               x:Name="IndexLabel"/>
-                        <Label Text="{Binding Title}"
-                               FontSize="Medium"
-                               VerticalOptions="Center"
-                               Grid.Column="1" />
-                        <Label Text="{Binding Autor}"
-                               TextColor="Silver"
-                               FontSize="Small"
-                               VerticalOptions="Start"
-                               Grid.Column="1"
-                               Grid.Row="1" />
-                        <Button Text="/\" 
-                                Clicked="UpButton_Clicked" 
-                                MaximumWidthRequest="40" 
-                                MaximumHeightRequest="35"
-                                Grid.Column="2"
-                                x:Name="{Binding TBRIndex}"
-                                />
-                        <Button Text="\/"
-                                FontSize="Small"
-                                Clicked="DownButton_Clicked"
-                                MaximumWidthRequest="40" 
-                                MaximumHeightRequest="35"
-                                Grid.Column="2"
-                                Grid.Row="1" />
-                    </Grid>
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <StackLayout>
+        <SearchBar Placeholder="Search Book"
+           x:Name="searchBar"
+           TextChanged="SearchBar_TextChanged" />
+
+        <CollectionView x:Name="collectionView"
+                        Margin="20"
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged"                       
+                        EmptyView="No books to display"
+                        >
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <!-- Define the appearance of each item in the list -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Grid AutomationId="{Binding TBRIndex}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding TBRIndex}"
+                                   VerticalOptions="Center"
+                                   x:Name="IndexLabel"/>
+                            <Label Text="{Binding Title}"
+                                   FontSize="Medium"
+                                   VerticalOptions="Center"
+                                   Grid.Column="1" />
+                            <Label Text="{Binding Autor}"
+                                   TextColor="Silver"
+                                   FontSize="Small"
+                                   VerticalOptions="Start"
+                                   Grid.Column="1"
+                                   Grid.Row="1" />
+                            <ImageButton Source="up_arrow.png" 
+                                         Clicked="UpButton_Clicked" 
+                                         MaximumWidthRequest="40" 
+                                         MaximumHeightRequest="35"
+                                         Grid.Column="2" 
+                                         IsVisible="{Binding NotFirstIndex}"/>
+                            <ImageButton Source="down_arrow.png"
+                                         Clicked="DownButton_Clicked"
+                                         MaximumWidthRequest="40" 
+                                         MaximumHeightRequest="35"
+                                         Grid.Column="2"
+                                         Grid.Row="1"
+                                         IsVisible="{Binding NotLastIndex}"/> 
+                        </Grid>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

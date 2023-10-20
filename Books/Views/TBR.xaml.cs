@@ -1,16 +1,16 @@
 using Books.Models;
 using Microsoft.Maui;
+using System.Collections.ObjectModel;
 
 namespace Books.Views;
 
 public partial class TBR : ContentPage
 {
-    public List<Book> tbrList;
-
+    public ObservableCollection<Book> tbrList;
 
     public TBR()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
 
     protected override async void OnAppearing()
@@ -51,7 +51,7 @@ public partial class TBR : ContentPage
             }
         }
 
-        tbrList = new List<Book>();
+        tbrList = new ObservableCollection<Book>();
         bool newBook = false;
 
         for (int i = 0; i < keyValueList.Count; i++)
@@ -74,7 +74,9 @@ public partial class TBR : ContentPage
         foreach(Book book in tbrList)
         {
             book.TBRIndex = tbrList.IndexOf(book) + 1;
-            Console.WriteLine("Index: " + book.Title + "..." + tbrList.IndexOf(book));
+
+            SetFirstLastIndex(book);
+
             await App.Database.SaveNoteAsync(book);
         }
 
@@ -91,14 +93,78 @@ public partial class TBR : ContentPage
         }
     }
 
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        var filteredList = tbrList.Where(a => a.Title.Contains(e.NewTextValue) || a.Autor.Contains(e.NewTextValue));
+        collectionView.ItemsSource = filteredList;
+    }   
+
     private void UpButton_Clicked(object sender, EventArgs e)
     {
-        //Grid gridParent = (Button)sender).Parent;
-        Console.WriteLine("ITEM Visual CHILD ---- " + ((Button)sender).Parent);
-        Console.WriteLine("ITEM Visual CHILD 2 ---- " + ((Button)sender).Id);
+        ImageButton btn = (ImageButton)sender;
+        var grid = btn.Parent;
+        string automationId = grid.AutomationId;
+        try
+        {
+            int index = int.Parse(automationId);
+            Console.WriteLine("ID ----------- " + automationId);
+            index -= 1;
+            Console.WriteLine("INDEX -1 ----------- " + index);
+            SetNewIndex(index, index - 1);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine($"Unable to parse '{automationId}'");
+        }
     }
     private void DownButton_Clicked(object sender, EventArgs e)
     {
-        Console.WriteLine("DOWN ---- " + sender.ToString());
+        ImageButton btn = (ImageButton)sender;
+        var grid = btn.Parent;
+        string automationId = grid.AutomationId;
+        try
+        {
+            int index = int.Parse(automationId);
+            Console.WriteLine("ID ----------- " + automationId);
+            index -= 1;
+            Console.WriteLine("INDEX -1 ----------- " + index);
+            SetNewIndex(index, index + 1);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine($"Unable to parse '{automationId}'");
+        }
+    }
+
+    public void SetNewIndex(int a, int b)
+    {
+        Book temp = tbrList[a];
+        tbrList[a] = tbrList[b];
+        tbrList[b] = temp;       
+
+        //Set and Save a
+        tbrList[a].TBRIndex = tbrList.IndexOf(tbrList[a]) + 1;
+        SetFirstLastIndex(tbrList[a]);
+        App.Database.SaveNoteAsync(tbrList[a]);
+
+        //Set and Save b
+        tbrList[b].TBRIndex = tbrList.IndexOf(tbrList[b]) + 1;
+        SetFirstLastIndex(tbrList[b]);
+        App.Database.SaveNoteAsync(tbrList[b]);
+
+        collectionView.ItemsSource = tbrList;       
+    }
+
+    public void SetFirstLastIndex(Book book)
+    {
+        if (tbrList.IndexOf(book) == 0)
+            book.NotFirstIndex = false;
+        else
+            book.NotFirstIndex = true;
+
+        if (tbrList.IndexOf(book) == tbrList.Count - 1)
+            book.NotLastIndex = false;
+        else
+            book.NotLastIndex = true;
     }
 }
