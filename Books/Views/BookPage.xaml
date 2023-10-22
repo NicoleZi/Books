@@ -1,95 +1,193 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lang="clr-namespace:Books.Resources.Languages"
              x:Class="Books.Views.BookPage"
-             Title="BookPage">
+             Title="{x:Static lang:AppResources.BookPage}">
     <!-- Layout children vertically -->
-    <ScrollView>
-        <StackLayout Margin="20">
-            <Editor Placeholder="Book Title"
-                    Text="{Binding Title}"
-                    HeightRequest="100" />
-            <Editor Placeholder="Autor"
-                    Text="{Binding Autor}"
-                    HeightRequest="100" />
-            <Label Text="Favorite:" />
-            <CheckBox Color="Red" x:Name="CheckboxFavorite" IsChecked="{Binding Favorite}"/>
+    <Grid RowDefinitions="10*, 1*">
+        <ScrollView>
+            <StackLayout Margin="20">
+                <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*" RowSpacing="3">
+                    <ImageButton Source="heart_fill.png" 
+                                 x:Name="FavBtn" 
+                                 HeightRequest="25" 
+                                 Clicked="Fav_Clicked"/>
 
-            <Label x:Name="Status"
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-                <Label Text="Bought" />
-                <CheckBox x:Name="CheckBought" IsChecked="{Binding Bought}"/>
-                <Label Text="Read" Grid.Column="1"/>
-                <CheckBox x:Name="CheckRead" IsChecked="{Binding Read}" Grid.Column="1"/>
-            </Grid>
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-                <Label Text="Privates Buch"/>
-                <Switch x:Name="CheckPrivate" IsToggled="{Binding Private}" />
-            </Grid>
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-                <Label Text="Band:" />
-                <Label x:Name="VolumeLabel" Text="{Binding Volume}" Grid.Column="1"/>
-            </Grid>
-            <Stepper x:Name="VolumeStepper"
-                     Minimum="0"
-                     Maximum="999"
-                     Increment="1"
-                     Value="{Binding Volume}" 
-                     ValueChanged="OnVolumeStepperValueChanged" />
-            <Editor x:Name="EditorUniversum" 
-                    Placeholder="Universum" 
-                    Text="{Binding Universum}"
-                    HeightRequest="100" />
-            <Editor x:Name="EditorGenre" 
-                    Placeholder="Genre" 
-                    Text="{Binding Genre}"
-                    HeightRequest="100" />
+                    <Editor Placeholder="{x:Static lang:AppResources.BookTitle}"
+                            Text="{Binding Title}"
+                            HeightRequest="60" 
+                            Grid.Row="1"
+                            Margin="5"
+                            PlaceholderColor="{AppThemeBinding Dark={StaticResource Gray300}}"/>
+                    <Editor Placeholder="{x:Static lang:AppResources.Author}"
+                            Text="{Binding Autor}"
+                            HeightRequest="60" 
+                            Grid.Row="2"
+                            Margin="5"
+                            PlaceholderColor="{AppThemeBinding Dark={StaticResource Gray300}}"/>
 
-            <Label Text="Release Date:" />
-            <DatePicker x:Name="DatePicker"
-                        Date="{Binding ReleaseDate}"
-                        Format="D"
-                        Margin="30, 0, 0, 30" />
-
-            
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="2">
-                <Label Text="Sterne:" />
-                <Label x:Name="RatingLabel" Text="{Binding Rating}" Grid.Column="1"/>
-            </Grid>
-            <Stepper x:Name="RatingStepper"
-                     Minimum="0"
-                     Maximum="5"
-                     Increment="0.5"
-                     Value="{Binding Rating}" 
-                     ValueChanged="OnRatingStepperValueChanged" />
-
-            <Editor x:Name="EditorComment" 
-                    Placeholder="Comments" 
-                    Text="{Binding Comment}"
-                    HeightRequest="100" />
-            <Grid RowDefinitions="*,*" Margin="20">
-                <Button x:Name="PhotoButton"
-                    Text="Add Photo"
-                    Clicked="PhotoButton_Clicked" />
-                <ScrollView HorizontalScrollBarVisibility="Always"
-                            Orientation="Horizontal"
-                    HeightRequest="250"
-                            Grid.Row="1">
-                    <Grid x:Name="PhotoGrid" ColumnSpacing="5" ColumnDefinitions="*">
+                    <Grid ColumnDefinitions="2*,1*,1*,2*" ColumnSpacing="2" Grid.Row="3">
+                        <Label Text="{x:Static lang:AppResources.Bought}" 
+                               HorizontalOptions="End"
+                               VerticalOptions="Center"/>
+                        <CheckBox x:Name="CheckBought" 
+                                  IsChecked="{Binding Bought}" 
+                                  Grid.Column="1" 
+                                  HorizontalOptions="Start"
+                                  VerticalOptions="Center"/>
+                        <Label Text="{x:Static lang:AppResources.Read}" 
+                               Grid.Column="2" 
+                               HorizontalOptions="End"
+                               VerticalOptions="Center"/>
+                        <CheckBox x:Name="CheckRead" 
+                                  IsChecked="{Binding Read}" 
+                                  Grid.Column="3" 
+                                  HorizontalOptions="Start"
+                                  VerticalOptions="Center"/>
                     </Grid>
-                </ScrollView>
-            </Grid>
+                    <Line X1="500" X2="0" Y1="0" Y2="0" 
+                          Stroke="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"
+                          StrokeThickness="2"
+                          HorizontalOptions="EndAndExpand"
+                          Grid.Row="4"/>
 
-            <!-- Layout children in two columns -->
-            <Grid ColumnDefinitions="*,*">
-                <Button Text="Save" 
-                    Clicked="OnSaveButtonClicked" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="2" Grid.Row="5">
+                        <Label Text="{x:Static lang:AppResources.Private}"
+                               HorizontalOptions="End"
+                               VerticalOptions="Center"/>
+                        <Switch x:Name="CheckPrivate" 
+                                IsToggled="{Binding Private}" 
+                                Grid.Column="1"
+                                ThumbColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                    </Grid>
+
+                    <Line X1="500" X2="0" Y1="0" Y2="0" 
+                          Stroke="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"
+                          StrokeThickness="2"
+                          HorizontalOptions="EndAndExpand"
+                          Grid.Row="6"/>
+
+                    <Grid ColumnDefinitions="1*,1.5*,1.5*" ColumnSpacing="2" Grid.Row="7">
+                        <Stepper x:Name="VolumeStepper"
+                                 Minimum="0"
+                                 Maximum="999"
+                                 Increment="1"
+                                 Value="{Binding Volume}" 
+                                 ValueChanged="OnVolumeStepperValueChanged" 
+                                 Scale="0.8"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center"
+                                 />
+                        <Label x:Name="VolumeLabel" 
+                               Text="{Binding Volume}" 
+                               Grid.Column="1"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Label Text="{x:Static lang:AppResources.Volume}" 
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               Grid.Column="2"/>
+
+                    </Grid>
+                    <Line X1="500" X2="0" Y1="0" Y2="0" 
+                          Stroke="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"
+                          StrokeThickness="2"
+                          HorizontalOptions="EndAndExpand"
+                          Grid.Row="8"/>
+
+                    <Editor x:Name="EditorUniversum" 
+                            Placeholder="{x:Static lang:AppResources.Universe}" 
+                            Text="{Binding Universum}"
+                            HeightRequest="60" 
+                            Grid.Row="9"
+                            Margin="5"
+                            PlaceholderColor="{AppThemeBinding Dark={StaticResource Gray300}}"/>
+                    <Editor x:Name="EditorGenre" 
+                            Placeholder="Genre" 
+                            Text="{Binding Genre}"
+                            HeightRequest="60" 
+                            Grid.Row="10"
+                            Margin="5"
+                            PlaceholderColor="{AppThemeBinding Dark={StaticResource Gray300}}"/>
+                    <Grid RowDefinitions="*,*" Grid.Row="11">
+                        <Label Text="{x:Static lang:AppResources.Date}" />
+                        <DatePicker x:Name="DatePicker"
+                                    Date="{Binding ReleaseDate}"
+                                    Format="D"
+                                    Margin="30, 0, 0, 30" 
+                                    Grid.Row="1"/>
+                    </Grid>
+                    <Border Grid.Row="12" Padding="5"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10,10,10,10" />
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="3*,1*,1*,1*,1*,1*,3*" >
+                            <ImageButton x:Name="star1" Source="star_nofill.png" HeightRequest="20" Grid.Column="1" Clicked="Star1_Clicked"/>
+                            <ImageButton x:Name="star2" Source="star_nofill.png" HeightRequest="20" Grid.Column="2" Clicked="Star2_Clicked"/>
+                            <ImageButton x:Name="star3" Source="star_nofill.png" HeightRequest="20" Grid.Column="3" Clicked="Star3_Clicked"/>
+                            <ImageButton x:Name="star4" Source="star_nofill.png" HeightRequest="20" Grid.Column="4" Clicked="Star4_Clicked"/>
+                            <ImageButton x:Name="star5" Source="star_nofill.png" HeightRequest="20" Grid.Column="5" Clicked="Star5_Clicked"/>
+                        </Grid>
+                    </Border>
+                    <Editor x:Name="EditorComment" 
+                            Placeholder="{x:Static lang:AppResources.Comment}" 
+                            Text="{Binding Comment}"
+                            HeightRequest="100"
+                            Grid.Row="13"
+                            Margin="5"
+                            PlaceholderColor="{AppThemeBinding Dark={StaticResource Gray300}}"/>
+                    <Grid RowDefinitions="*,*" Margin="20" Grid.Row="14">
+
+                        <ScrollView HorizontalScrollBarVisibility="Always"
+                                    Orientation="Horizontal"
+                                    HeightRequest="200">
+                            <Grid x:Name="PhotoGrid" ColumnSpacing="5" ColumnDefinitions="*"></Grid>
+                        </ScrollView>
+                        <Button x:Name="PhotoButton"
+                                Grid.Row="1"
+                                Text="{x:Static lang:AppResources.Photo}"
+                                Clicked="PhotoButton_Clicked" 
+                                Margin="5"
+                                FontSize="Micro"
+                                WidthRequest="150"
+                                HeightRequest="35"/>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <!-- Layout children in two columns -->
+        <Grid RowDefinitions="0.1*,1*, 0.1*" Grid.Row="1">
+            <Line X1="500" X2="0" Y1="0" Y2="0" 
+                  Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Tertiary}}"
+                  StrokeThickness="2"
+                  HorizontalOptions="EndAndExpand"
+                  VerticalOptions="End"/>
+            <Grid ColumnDefinitions="*,*" Grid.Row="1" VerticalOptions="Center">
+                <Button Text="{x:Static lang:AppResources.Save}" 
+                        Clicked="OnSaveButtonClicked"
+                        Margin="5" 
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"
+                        WidthRequest="175"
+                        HorizontalOptions="Center"/>
                 <Button Grid.Column="1"
-                    Text="Delete" 
-                    Clicked="OnDeleteButtonClicked"/>
+                        Text="{x:Static lang:AppResources.Delete}" 
+                        Clicked="OnDeleteButtonClicked"
+                        Margin="5"
+                        WidthRequest="175"
+                        HorizontalOptions="Center"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"/>
             </Grid>
-        </StackLayout>
-    </ScrollView>
+            <Line X1="500" X2="0" Y1="0" Y2="0" 
+                  Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Tertiary}}"
+                  StrokeThickness="2"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Start"
+                  Grid.Row="2"/>
+        </Grid>
+    </Grid>
 </ContentPage>
