@@ -3,18 +3,21 @@
     x:Class="Books.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lang="clr-namespace:Books.Resources.Languages"
     xmlns:views="clr-namespace:Books.Views"
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
         <ShellContent
-        Title="Books"
+        Title="{x:Static lang:AppResources.Books}"
         ContentTemplate="{DataTemplate views:AllBooksPage}"
-        Icon="{OnPlatform 'icon_notes.png', iOS='icon_notes_ios.png', MacCatalyst='icon_notes_ios.png'}" />
+        Icon="{OnPlatform 'book_stack.png', iOS='book_stack.png', MacCatalyst='book_stack.png'}"
+        
+        />
         <ShellContent
         Title="TBR"
         ContentTemplate="{DataTemplate views:TBR}"
-        Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}" />
+        Icon="{OnPlatform 'scroll.png', iOS='scroll.png', MacCatalyst='scroll.png'}" />
     </TabBar>
 
 </Shell>

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lang="clr-namespace:Books.Resources.Languages"
              x:Class="Books.Views.TBR"
-             Title="TBR">
+             Title="To_Be_Read">
 
     <StackLayout>
-        <SearchBar Placeholder="Search Book"
-           x:Name="searchBar"
-           TextChanged="SearchBar_TextChanged" />
+        <SearchBar Placeholder="{x:Static lang:AppResources.SearchBar}"
+                   x:Name="searchBar"
+                   TextChanged="SearchBar_TextChanged"
+                   PlaceholderColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray200}}"
+                   BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Tertiary}}"
+                   Margin="2" />
 
         <CollectionView x:Name="collectionView"
                         Margin="20"
                         SelectionMode="Single"
                         SelectionChanged="OnSelectionChanged"                       
-                        EmptyView="No books to display"
+                        EmptyView="{x:Static lang:AppResources.EmptyView}"
                         >
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
@@ -36,17 +40,20 @@
 
                             <Label Text="{Binding TBRIndex}"
                                    VerticalOptions="Center"
-                                   x:Name="IndexLabel"/>
+                                   x:Name="IndexLabel"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"/>
                             <Label Text="{Binding Title}"
                                    FontSize="Medium"
                                    VerticalOptions="Center"
                                    Grid.Column="1" />
                             <Label Text="{Binding Autor}"
-                                   TextColor="Silver"
+                                   TextColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Secondary}}"
                                    FontSize="Small"
                                    VerticalOptions="Start"
                                    Grid.Column="1"
-                                   Grid.Row="1" />
+                                   Grid.Row="1" 
+                                   Padding="3"/>
                             <ImageButton Source="up_arrow.png" 
                                          Clicked="UpButton_Clicked" 
                                          MaximumWidthRequest="40" 
@@ -59,8 +66,12 @@
                                          MaximumHeightRequest="35"
                                          Grid.Column="2"
                                          Grid.Row="1"
-                                         IsVisible="{Binding NotLastIndex}"/> 
+                                         IsVisible="{Binding NotLastIndex}"/>
                         </Grid>
+                        <Line X1="500" X2="0" Y1="0" Y2="0" 
+                              Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                              StrokeThickness="2"
+                              HorizontalOptions="EndAndExpand" />
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

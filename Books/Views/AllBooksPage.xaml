@@ -1,48 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lang="clr-namespace:Books.Resources.Languages"
              x:Class="Books.Views.AllBooksPage"
-             Title="AllBooksPage">
+             Title="{x:Static lang:AppResources.AllBooks}">
     <!-- Add an item to the toolbar -->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"
-                 Clicked="OnAddClicked" />
+                     Clicked="OnAddClicked"
+                     IconImageSource="{FontImage Glyph='+', Color=White, Size=22}"/>
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        <SearchBar Placeholder="Search Book"
+    <StackLayout HorizontalOptions="Center" >
+        <SearchBar Placeholder="{x:Static lang:AppResources.SearchBar}"
                    x:Name="searchBar"
-                   TextChanged="searchBar_TextChanged" />
+                   TextChanged="searchBar_TextChanged" 
+                   Margin="2"
+                   PlaceholderColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray200}}"
+                   BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Tertiary}}" />
         <!-- Display books in a list -->
-    <CollectionView x:Name="collectionView"
-                    Margin="20"
+        <CollectionView x:Name="collectionView"
+                    Margin="15"
                     SelectionMode="Single"
                     SelectionChanged="OnSelectionChanged"
-                    EmptyView="No books to display">
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical"
+                    EmptyView="{x:Static lang:AppResources.EmptyView}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
                                ItemSpacing="5" />
-        </CollectionView.ItemsLayout>
-        <!-- Define the appearance of each item in the list -->
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
+            </CollectionView.ItemsLayout>
+            <!-- Define the appearance of each item in the list -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10"
+                                 MinimumHeightRequest="50">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                    <StackLayout BackgroundColor="MediumSlateBlue"
-                                 Padding="10" >
-                    <Label Text="{Binding Title}"
-                           FontSize="Medium" />
-                    <RoundRectangle HeightRequest="15"
-                                    WidthRequest="15"
-                                    Fill="Green"
-                                    IsVisible="{Binding Bought}"
-                                    HorizontalOptions="StartAndExpand"/>
-                    <Label Text="{Binding Autor}"
-                           TextColor="Silver"
-                           FontSize="Small" />
+                            <Label Text="{Binding Title}"
+                               FontSize="Medium" />
+                            <RoundRectangle HeightRequest="15"
+                                        WidthRequest="15"
+                                        Fill="Green"
+                                        IsVisible="{Binding Bought}"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="StartAndExpand"
+                                        CornerRadius="40,40,40,40"
+                                        Grid.Column="1"/>
+                            <Label Text="{Binding Autor}"
+                                   TextColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Secondary}}"
+                                   FontSize="Small" 
+                                   Grid.Row="1"
+                                   Padding="2"/>
+                            
+                        </Grid>
+                        <Line X1="500" X2="0" Y1="0" Y2="0" 
+                              Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                              StrokeThickness="2"
+                              HorizontalOptions="EndAndExpand" />
                     </StackLayout>
-
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
 </ContentPage>
