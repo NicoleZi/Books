@@ -11,13 +11,11 @@
                      IconImageSource="{FontImage Glyph='+', Color=White, Size=22}"/>
     </ContentPage.ToolbarItems>
 
-    <StackLayout HorizontalOptions="Center" >
+    <StackLayout HorizontalOptions="CenterAndExpand" >
         <SearchBar Placeholder="{x:Static lang:AppResources.SearchBar}"
                    x:Name="searchBar"
                    TextChanged="searchBar_TextChanged" 
-                   Margin="2"
-                   PlaceholderColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray200}}"
-                   BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Tertiary}}" />
+                   Margin="2"/>
         <!-- Display books in a list -->
         <CollectionView x:Name="collectionView"
                     Margin="15"
