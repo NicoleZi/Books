@@ -8,9 +8,7 @@
     <StackLayout>
         <SearchBar Placeholder="{x:Static lang:AppResources.SearchBar}"
                    x:Name="searchBar"
-                   TextChanged="SearchBar_TextChanged"
-                   PlaceholderColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray200}}"
-                   BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Tertiary}}"
+                   TextChanged="SearchBar_TextChanged"                  
                    Margin="2" />
 
         <CollectionView x:Name="collectionView"

@@ -9,7 +9,7 @@
         <ScrollView>
             <StackLayout Margin="20">
                 <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*" RowSpacing="3">
-                    <ImageButton Source="heart_fill.png" 
+                    <ImageButton Source="heart_nofill.png" 
                                  x:Name="FavBtn" 
                                  HeightRequest="25" 
                                  Clicked="Fav_Clicked"/>
@@ -172,13 +172,13 @@
                         Clicked="OnSaveButtonClicked"
                         Margin="5" 
                         BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"
-                        WidthRequest="175"
+                        WidthRequest="190"
                         HorizontalOptions="Center"/>
                 <Button Grid.Column="1"
                         Text="{x:Static lang:AppResources.Delete}" 
                         Clicked="OnDeleteButtonClicked"
                         Margin="5"
-                        WidthRequest="175"
+                        WidthRequest="190"
                         HorizontalOptions="Center"
                         BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Primary}}"/>
             </Grid>

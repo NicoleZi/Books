@@ -11,10 +11,10 @@ namespace Books
         {
             get
             {
-                if (database == null)
-                {
-                    database = new BookDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Notes.db3"));
-                }
+                if (database != null)
+                    return database;
+
+                database = new BookDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Notes.db3"));
                 return database;
             }
         }
