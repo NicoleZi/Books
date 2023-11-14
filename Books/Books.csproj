@@ -34,8 +34,8 @@
 		<AndroidKeyStore>True</AndroidKeyStore>
 		<AndroidSigningKeyStore>books.app.keystore</AndroidSigningKeyStore>
 		<AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
-		<AndroidSigningKeyPass></AndroidSigningKeyPass>
-		<AndroidSigningStorePass></AndroidSigningStorePass>
+		<AndroidSigningKeyPass>MauiBookApp</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>MauiBookApp</AndroidSigningStorePass>
 	</PropertyGroup>
 
 	<ItemGroup>
